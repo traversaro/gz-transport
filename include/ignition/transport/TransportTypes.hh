@@ -18,7 +18,7 @@
 #define IGN_TRANSPORT_TRANSPORTTYPES_HH_
 
 #ifdef _MSC_VER
-#pragma warning(push, 0)
+#pragma warning(push)
 #pragma warning(disable: 4251 4146)
 #endif
 #include <google/protobuf/message.h>
