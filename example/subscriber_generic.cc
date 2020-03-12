@@ -15,7 +15,14 @@
  *
 */
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4251 4146)
+#endif
 #include <google/protobuf/message.h>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 #include <iostream>
 #include <string>
 #include <ignition/transport.hh>
