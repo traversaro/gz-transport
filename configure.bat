@@ -24,6 +24,7 @@ cmake .. ^
   -DCMAKE_INSTALL_PREFIX="%WORKSPACE_INSTALL_DIR%" ^
   -DCMAKE_PREFIX_PATH="%WORKSPACE_INSTALL_DIR%" ^
   -DCMAKE_BUILD_TYPE="%build_type%" ^
+  -DCMAKE_CXX_FLAGS="-W1" ^
   --trace ^
   -DBUILD_TESTING:BOOL=False
 :: Note: We disable testing by default. If the intention is for the CI to build and test
