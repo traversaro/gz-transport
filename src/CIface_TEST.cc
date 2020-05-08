@@ -14,11 +14,18 @@
  * limitations under the License.
  *
 */
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4251 4146)
+#endif
 #include <ignition/msgs/stringmsg.pb.h>
 
 #include "gtest/gtest.h"
 #include "ignition/transport/CIface.h"
 #include "ignition/transport/test_config.h"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 static int count;
 
