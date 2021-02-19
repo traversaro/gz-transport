@@ -120,7 +120,9 @@ TEST(twoProcSrvCallWithoutOutput, ServiceList)
   EXPECT_LT(std::chrono::duration_cast<std::chrono::milliseconds>
       (elapsed2).count(), 2);
 
-  EXPECT_LE(elapsed2, elapsed1);
+  EXPECT_LE(elapsed2, elapsed1) <<
+      std::chrono::duration_cast<std::chrono::nanoseconds>(elapsed2 - elapsed1
+      ).count();
 
   reset();
 
