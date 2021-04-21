@@ -73,11 +73,7 @@ TEST(topicStatistics, SingleProcessPublishStatistics)
 //////////////////////////////////////////////////
 int main(int argc, char **argv)
 {
-  // Get a random partition name.
-  std::string partition = testing::getRandomNumber();
-
-  // Set the partition name for this process.
-  setenv("IGN_PARTITION", partition.c_str(), 1);
+  testing::setupTestEnvironment();
   setenv("IGN_TRANSPORT_TOPIC_STATISTICS", "1", 1);
 
   ::testing::InitGoogleTest(&argc, argv);

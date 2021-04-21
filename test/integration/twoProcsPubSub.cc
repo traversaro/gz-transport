@@ -26,7 +26,7 @@
 
 using namespace ignition;
 
-static std::string partition;  // NOLINT(*)
+static std::string g_partition;  // NOLINT(*)
 static std::string g_FQNPartition;  // NOLINT(*)
 static const std::string g_topic = "/foo";  // NOLINT(*)
 static std::string data = "bar";  // NOLINT(*)
@@ -113,7 +113,7 @@ TEST(twoProcPubSub, PubSubTwoProcsThreeNodes)
      "INTEGRATION_twoProcsPubSubSubscriber_aux");
 
   testing::forkHandlerType pi = testing::forkAndRun(subscriberPath.c_str(),
-    partition.c_str());
+    g_partition.c_str());
 
   ignition::msgs::Vector3d msg;
   msg.set_x(1.0);
@@ -152,7 +152,7 @@ TEST(twoProcPubSub, RawPubSubTwoProcsThreeNodes)
      "INTEGRATION_twoProcsPubSubSubscriber_aux");
 
   testing::forkHandlerType pi = testing::forkAndRun(subscriberPath.c_str(),
-    partition.c_str());
+    g_partition.c_str());
 
   ignition::msgs::Vector3d msg;
   msg.set_x(1.0);
@@ -187,7 +187,7 @@ TEST(twoProcPubSub, PubSubWrongTypesOnSubscription)
      "INTEGRATION_twoProcsPublisher_aux");
 
   testing::forkHandlerType pi = testing::forkAndRun(publisherPath.c_str(),
-    partition.c_str());
+    g_partition.c_str());
 
   reset();
 
@@ -214,7 +214,7 @@ TEST(twoProcPubSub, PubRawSubWrongTypesOnSubscription)
      "INTEGRATION_twoProcsPublisher_aux");
 
   testing::forkHandlerType pi = testing::forkAndRun(publisherPath.c_str(),
-    partition.c_str());
+    g_partition.c_str());
 
   reset();
 
@@ -246,7 +246,7 @@ TEST(twoProcPubSub, PubSubWrongTypesTwoSubscribers)
      "INTEGRATION_twoProcsPublisher_aux");
 
   testing::forkHandlerType pi = testing::forkAndRun(publisherPath.c_str(),
-    partition.c_str());
+    g_partition.c_str());
 
   reset();
 
@@ -286,7 +286,7 @@ TEST(twoProcPubSub, PubSubWrongTypesTwoRawSubscribers)
      "INTEGRATION_twoProcsPublisher_aux");
 
   testing::forkHandlerType pi = testing::forkAndRun(publisherPath.c_str(),
-    partition.c_str());
+    g_partition.c_str());
 
   reset();
 
@@ -348,7 +348,7 @@ TEST(twoProcPubSub, FastPublisher)
      IGN_TRANSPORT_TEST_DIR, "INTEGRATION_fastPub_aux");
 
   testing::forkHandlerType pi = testing::forkAndRun(publisherPath.c_str(),
-    partition.c_str());
+    g_partition.c_str());
 
   reset();
 
@@ -368,7 +368,7 @@ TEST(twoProcPubSub, SubThrottled)
      IGN_TRANSPORT_TEST_DIR, "INTEGRATION_pub_aux");
 
   testing::forkHandlerType pi = testing::forkAndRun(publisherPath.c_str(),
-    partition.c_str());
+    g_partition.c_str());
 
   reset();
 
@@ -399,7 +399,7 @@ TEST(twoProcPubSub, PubThrottled)
      IGN_TRANSPORT_TEST_DIR, "INTEGRATION_pub_aux_throttled");
 
   testing::forkHandlerType pi = testing::forkAndRun(publisherPath.c_str(),
-    partition.c_str());
+    g_partition.c_str());
 
   reset();
 
@@ -428,7 +428,7 @@ TEST(twoProcPubSub, PubSubMessageInfo)
      IGN_TRANSPORT_TEST_DIR, "INTEGRATION_twoProcsPublisher_aux");
 
   testing::forkHandlerType pi = testing::forkAndRun(publisherPath.c_str(),
-    partition.c_str());
+    g_partition.c_str());
 
   reset();
 
@@ -456,7 +456,7 @@ TEST(twoProcPubSub, TopicList)
      IGN_TRANSPORT_TEST_DIR, "INTEGRATION_twoProcsPublisher_aux");
 
   testing::forkHandlerType pi = testing::forkAndRun(publisherPath.c_str(),
-    partition.c_str());
+    g_partition.c_str());
 
   reset();
 
@@ -507,7 +507,7 @@ TEST(twoProcPubSub, TopicInfo)
      IGN_TRANSPORT_TEST_DIR, "INTEGRATION_twoProcsPublisher_aux");
 
   testing::forkHandlerType pi = testing::forkAndRun(publisherPath.c_str(),
-    partition.c_str());
+    g_partition.c_str());
 
   reset();
 
@@ -535,12 +535,9 @@ TEST(twoProcPubSub, TopicInfo)
 //////////////////////////////////////////////////
 int main(int argc, char **argv)
 {
-  // Get a random partition name.
-  partition = testing::getRandomNumber();
-  g_FQNPartition = std::string("/") + partition;
+  testing::setupTestEnvironment(g_partition);
+  g_FQNPartition = std::string("/") + g_partition;
 
-  // Set the partition name for this process.
-  setenv("IGN_PARTITION", partition.c_str(), 1);
   setenv("IGN_TRANSPORT_TOPIC_STATISTICS", "1", 1);
 
   ::testing::InitGoogleTest(&argc, argv);

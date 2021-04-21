@@ -29,7 +29,7 @@ using namespace ignition;
 static bool responseExecuted;
 static bool wrongResponseExecuted;
 
-static std::string partition; // NOLINT(*)
+static std::string g_partition; // NOLINT(*)
 static std::string g_topic = "/foo"; // NOLINT(*)
 static int data = 5;
 static int counter = 0;
@@ -71,7 +71,7 @@ TEST(twoProcSrvCall, SrvTwoProcs)
     "INTEGRATION_twoProcsSrvCallReplier_aux");
 
   testing::forkHandlerType pi = testing::forkAndRun(responser_path.c_str(),
-    partition.c_str());
+    g_partition.c_str());
 
   reset();
 
@@ -130,7 +130,7 @@ TEST(twoProcSrvCall, SrvRequestWrongReq)
      "INTEGRATION_twoProcsSrvCallReplier_aux");
 
   testing::forkHandlerType pi = testing::forkAndRun(responser_path.c_str(),
-    partition.c_str());
+    g_partition.c_str());
 
   wrongReq.set_x(1);
   wrongReq.set_y(2);
@@ -171,7 +171,7 @@ TEST(twoProcSrvCall, SrvRequestWrongRep)
 
 
   testing::forkHandlerType pi = testing::forkAndRun(responser_path.c_str(),
-    partition.c_str());
+    g_partition.c_str());
 
   req.set_data(data);
 
@@ -211,7 +211,7 @@ TEST(twoProcSrvCall, SrvTwoRequestsOneWrong)
      "INTEGRATION_twoProcsSrvCallReplier_aux");
 
   testing::forkHandlerType pi = testing::forkAndRun(responser_path.c_str(),
-    partition.c_str());
+    g_partition.c_str());
 
   req.set_data(data);
 
@@ -252,7 +252,7 @@ TEST(twoProcSrvCall, ServiceList)
      "INTEGRATION_twoProcsSrvCallReplier_aux");
 
   testing::forkHandlerType pi = testing::forkAndRun(publisherPath.c_str(),
-    partition.c_str());
+    g_partition.c_str());
 
   reset();
 
@@ -304,7 +304,7 @@ TEST(twoProcSrvCall, ServiceInfo)
      "INTEGRATION_twoProcsSrvCallReplier_aux");
 
   testing::forkHandlerType pi = testing::forkAndRun(publisherPath.c_str(),
-    partition.c_str());
+    g_partition.c_str());
 
   reset();
 
@@ -333,14 +333,7 @@ TEST(twoProcSrvCall, ServiceInfo)
 //////////////////////////////////////////////////
 int main(int argc, char **argv)
 {
-  // Get a random partition name.
-  partition = testing::getRandomNumber();
-
-  // Set the partition name for this process.
-  setenv("IGN_PARTITION", partition.c_str(), 1);
-
-  // Enable verbose mode.
-  // setenv("IGN_VERBOSE", "1", 1);
+  testing::setupTestEnvironment(g_partition);
 
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

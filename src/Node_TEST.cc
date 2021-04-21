@@ -36,7 +36,7 @@
 
 using namespace ignition;
 
-static std::string partition; // NOLINT(*)
+static std::string g_partition; // NOLINT(*)
 static std::string g_FQNPartition; // NOLINT(*)
 static std::string g_topic = "/foo"; // NOLINT(*)
 static std::string g_topic_remap = "/bar"; // NOLINT(*)
@@ -516,9 +516,9 @@ TEST(NodeTest, PubWithoutAdvertise)
   // empty namespace.
   transport::NodeOptions optionsNode1;
   transport::NodeOptions optionsNode2;
-  optionsNode1.SetPartition(partition);
+  optionsNode1.SetPartition(g_partition);
   optionsNode1.SetNameSpace("invalid namespace");
-  optionsNode2.SetPartition(partition);
+  optionsNode2.SetPartition(g_partition);
   transport::Node node1(optionsNode1);
   transport::Node node2(optionsNode2);
 
@@ -2305,15 +2305,8 @@ TEST(NodeTest, statistics)
 //////////////////////////////////////////////////
 int main(int argc, char **argv)
 {
-  // Get a random partition name.
-  partition = testing::getRandomNumber();
-  g_FQNPartition = std::string("/") + partition;
-
-  // Set the partition name for this process.
-  setenv("IGN_PARTITION", partition.c_str(), 1);
-
-  // Enable verbose mode.
-  setenv("IGN_VERBOSE", "1", 1);
+  testing::setupTestEnvironment(g_partition);
+  g_FQNPartition = std::string("/") + g_partition;
 
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

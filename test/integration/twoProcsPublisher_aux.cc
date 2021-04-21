@@ -53,8 +53,8 @@ int main(int argc, char **argv)
     return -1;
   }
 
-  // Set the partition name for this test.
-  setenv("IGN_PARTITION", argv[1], 1);
+  std::string partition = argv[1];
+  testing::setupTestEnvironment(partition);
 
   advertiseAndPublish();
 }

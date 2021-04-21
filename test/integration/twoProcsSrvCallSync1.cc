@@ -26,7 +26,7 @@
 
 using namespace ignition;
 
-static std::string partition; // NOLINT(*)
+static std::string g_partition; // NOLINT(*)
 static std::string g_topic = "/foo"; // NOLINT(*)
 static int data = 5;
 
@@ -42,7 +42,7 @@ TEST(twoProcSrvCallSync1, SrvTwoProcs)
      "INTEGRATION_twoProcsSrvCallReplier_aux");
 
   testing::forkHandlerType pi = testing::forkAndRun(responser_path.c_str(),
-    partition.c_str());
+    g_partition.c_str());
 
   int64_t timeout = 500;
   ignition::msgs::Int32 req;
@@ -79,14 +79,7 @@ TEST(twoProcSrvCallSync1, SrvTwoProcs)
 //////////////////////////////////////////////////
 int main(int argc, char **argv)
 {
-  // Get a random partition name.
-  partition = testing::getRandomNumber();
-
-  // Set the partition name for this process.
-  setenv("IGN_PARTITION", partition.c_str(), 1);
-
-  // Enable verbose mode.
-  setenv("IGN_VERBOSE", "1", 1);
+  testing::setupTestEnvironment(g_partition);
 
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

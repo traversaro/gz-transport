@@ -86,7 +86,9 @@ TEST(ignTest, IGN_UTILS_TEST_DISABLED_ON_MAC(TopicList))
     g_partition.c_str());
 
   // Check the 'ign topic -l' command.
-  std::string ign = std::string(IGN_PATH) + "/ign";
+  std::string ign = "IGN_VERBOSE=true IGN_DISCOVERY_MSG_PORT=" +
+      std::to_string(testing::kTestMsgDiscPort) + " IGN_DISCOVERY_SRV_PORT=" +
+      std::to_string(testing::kTestSrvDiscPort) + std::string(IGN_PATH) + "/ign";
 
   unsigned int retries = 0u;
   bool topicFound = false;
@@ -447,11 +449,7 @@ TEST(ignTest, TopicEchoNum)
 /// Main
 int main(int argc, char **argv)
 {
-  // Get a random partition name.
-  g_partition = testing::getRandomNumber();
-
-  // Set the partition name for this process.
-  setenv("IGN_PARTITION", g_partition.c_str(), 1);
+  testing::setupTestEnvironment(g_partition);
 
   // Set IGN_CONFIG_PATH to the directory where the .yaml configuration files
   // is located.

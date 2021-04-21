@@ -26,7 +26,7 @@
 
 using namespace ignition;
 
-static std::string partition; // NOLINT(*)
+static std::string g_partition; // NOLINT(*)
 static std::string g_topic = "/foo"; // NOLINT(*)
 
 //////////////////////////////////////////////////
@@ -49,7 +49,7 @@ TEST(authPubSub, InvalidAuth)
 
   // Start the subscriber in another process with incorrect credentials.
   testing::forkHandlerType pi = testing::forkAndRun(subscriberPath.c_str(),
-    partition.c_str(), "bad", "invalid");
+    g_partition.c_str(), "bad", "invalid");
 
   ignition::msgs::Int32 msg;
   msg.set_data(1);
@@ -75,11 +75,7 @@ TEST(authPubSub, InvalidAuth)
 //////////////////////////////////////////////////
 int main(int argc, char **argv)
 {
-  // Get a random partition name.
-  partition = testing::getRandomNumber();
-
-  // Set the partition name for this process.
-  setenv("IGN_PARTITION", partition.c_str(), 1);
+  testing::setupTestEnvironment(g_partition);
 
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

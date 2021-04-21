@@ -53,6 +53,7 @@
 #endif
 
 #include "ignition/transport/Helpers.hh"
+#include "ignition/transport/NodeShared.hh"
 
 #if (_MSC_VER >= 1400) // Visual Studio 2005
   #include <sstream>
@@ -241,6 +242,42 @@ namespace testing
     std::uniform_int_distribution<int32_t> d(0, INT_MAX);
 
     return std::to_string(d(randGenerator));
+  }
+
+  /// \brief Port used for message discovery during tests.
+  const int kTestMsgDiscPort{
+      ignition::transport::NodeShared::kDefaultMsgDiscPort + 10};
+
+  /// \brief Port used for service discovery during tests.
+  const int kTestSrvDiscPort{
+      ignition::transport::NodeShared::kDefaultSrvDiscPort + 10};
+
+  /// \brief Setup test environment for isolation
+  /// \param[in, out] Partition name, it's randomized if empty.
+  static std::string dummyPartition;
+  void setupTestEnvironment(std::string &_partition = dummyPartition)
+  {
+    // Enable verbose mode.
+    setenv("IGN_VERBOSE", "1", 1);
+
+    // Set a random partition name for this process.
+    if (_partition.empty())
+    {
+      _partition = testing::getRandomNumber();
+      setenv("IGN_PARTITION", _partition.c_str(), 1);
+    }
+
+    // Set ports for tests
+    auto msgPort = std::to_string(kTestMsgDiscPort);
+    setenv("IGN_DISCOVERY_MSG_PORT", msgPort.c_str(), 1);
+    auto srvPort = std::to_string(kTestSrvDiscPort);
+    setenv("IGN_DISCOVERY_SRV_PORT", srvPort.c_str(), 1);
+
+    std::cout << "Test environment:" << std::endl
+              << "    Verbose: true" << std::endl
+              << "    Partition: " << _partition << std::endl
+              << "    Message discovery port: " << msgPort << std::endl
+              << "    Service discovery port: " << srvPort << std::endl;
   }
 }
 

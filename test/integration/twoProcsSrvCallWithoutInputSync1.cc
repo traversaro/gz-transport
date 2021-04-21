@@ -74,14 +74,7 @@ TEST(twoProcSrvCallWithoutInputSync1, SrvTwoProcs)
 //////////////////////////////////////////////////
 int main(int argc, char **argv)
 {
-  // Get a random partition name.
-  g_partition = testing::getRandomNumber();
-
-  // Set the partition name for this process.
-  setenv("IGN_PARTITION", g_partition.c_str(), 1);
-
-  // Enable verbose mode.
-  setenv("IGN_VERBOSE", "1", 1);
+  testing::setupTestEnvironment(g_partition);
 
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
