@@ -14,7 +14,7 @@
  * limitations under the License.
  *
 */
-#include <gz/msgs/stringmsg.pb.h>
+#include <ignition/msgs/stringmsg.pb.h>
 
 #include "gtest/gtest.h"
 #include "gz/transport/CIface.h"
@@ -31,7 +31,7 @@ void cb(const char *_data, size_t _size, const char *_msgType, void *_userData)
   ASSERT_NE(nullptr, userData);
   EXPECT_EQ(42, *userData);
 
-  gz::msgs::StringMsg msg;
+  ignition::msgs::StringMsg msg;
   msg.ParseFromArray(_data, _size);
   EXPECT_STREQ("gz.msgs.StringMsg", _msgType);
   EXPECT_EQ(msg.data(), "HELLO");
