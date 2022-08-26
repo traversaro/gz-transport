@@ -18,7 +18,7 @@
 #ifndef GZ_TRANSPORT_PUBLISHER_HH_
 #define GZ_TRANSPORT_PUBLISHER_HH_
 
-#include <gz/msgs/discovery.pb.h>
+#include <ignition/msgs/discovery.pb.h>
 
 #include <iostream>
 #include <string>
@@ -27,7 +27,7 @@
 #include "gz/transport/config.hh"
 #include "gz/transport/Export.hh"
 
-namespace gz
+namespace ignition
 {
   namespace transport
   {

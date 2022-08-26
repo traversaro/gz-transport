@@ -15,7 +15,7 @@
  *
 */
 #include <stdio.h>
-#include <gz/msgs/stringmsg.pb.h>
+#include <ignition/msgs/stringmsg.pb.h>
 #include <gz/transport/CIface.h>
 
 //////////////////////////////////////////////////

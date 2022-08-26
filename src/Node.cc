@@ -14,8 +14,8 @@
  * limitations under the License.
  *
 */
-#include <gz/msgs/discovery.pb.h>
-#include <gz/msgs/statistic.pb.h>
+#include <ignition/msgs/discovery.pb.h>
+#include <ignition/msgs/statistic.pb.h>
 
 #include <algorithm>
 #include <cassert>
@@ -48,7 +48,7 @@
 using namespace gz;
 using namespace transport;
 
-namespace gz
+namespace ignition
 {
   namespace transport
   {
@@ -830,7 +830,7 @@ bool Node::EnableStats(const std::string &_topic, bool _enable,
   AdvertiseMessageOptions opts;
   opts.SetMsgsPerSec(_publicationRate);
   this->dataPtr->statPub = this->Advertise(_publicationTopic,
-      "gz.msgs.Metric", opts);
+      "ignition.msgs.Metric", opts);
 
   // Callback used to publish a statistics message.
   // cppcheck-suppress unreadVariable

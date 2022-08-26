@@ -18,7 +18,7 @@
 #ifndef GZ_TRANSPORT_LOG_TEST_INTEGRATION_CHIRPPARAMS_HH_
 #define GZ_TRANSPORT_LOG_TEST_INTEGRATION_CHIRPPARAMS_HH_
 
-#include <gz/msgs/int32.pb.h>
+#include <ignition/msgs/int32.pb.h>
 #include <gz/transport/test_config.h>
 
 #include <string>
@@ -27,7 +27,7 @@
 #include <gz/transport/Node.hh>
 
 
-namespace gz
+namespace ignition
 {
   namespace transport
   {

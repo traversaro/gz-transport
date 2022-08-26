@@ -39,13 +39,13 @@
 // #define HAVE_IFADDRS 1
 /* #undef UBUNTU_FOCAL */
 
-namespace gz
+namespace ignition
 {
 }
 
-namespace ignition
+namespace gz
 {
-  using namespace gz;
+  using namespace ignition;
 }
 
 

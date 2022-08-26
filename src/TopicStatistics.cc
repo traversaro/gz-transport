@@ -14,7 +14,7 @@
  * limitations under the License.
  *
 */
-#include <gz/msgs/statistic.pb.h>
+#include <ignition/msgs/statistic.pb.h>
 
 #include <chrono>
 #include <cmath>

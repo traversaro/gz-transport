@@ -56,7 +56,7 @@
   #pragma warning(disable: 4996)
 #endif
 
-#include <gz/msgs/discovery.pb.h>
+#include <ignition/msgs/discovery.pb.h>
 
 #include <algorithm>
 #include <condition_variable>
@@ -68,7 +68,7 @@
 #include <thread>
 #include <vector>
 
-#include <gz/msgs/Utility.hh>
+#include <ignition/msgs/Utility.hh>
 
 #include "gz/transport/config.hh"
 #include "gz/transport/Export.hh"
@@ -78,7 +78,7 @@
 #include "gz/transport/TopicStorage.hh"
 #include "gz/transport/TransportTypes.hh"
 
-namespace gz
+namespace ignition
 {
   namespace transport
   {

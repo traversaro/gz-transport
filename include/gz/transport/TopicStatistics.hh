@@ -17,7 +17,7 @@
 #ifndef GZ_TRANSPORT_TOPICSTATISTICS_HH_
 #define GZ_TRANSPORT_TOPICSTATISTICS_HH_
 
-#include <gz/msgs/statistic.pb.h>
+#include <ignition/msgs/statistic.pb.h>
 
 #include <limits>
 #include <memory>
@@ -25,7 +25,7 @@
 #include "gz/transport/config.hh"
 #include "gz/transport/Export.hh"
 
-namespace gz
+namespace ignition
 {
   namespace transport
   {

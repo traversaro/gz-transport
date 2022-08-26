@@ -38,7 +38,7 @@
 #include <string>
 #include <utility>
 
-#include <gz/msgs/Factory.hh>
+#include <ignition/msgs/Factory.hh>
 
 #include "gz/transport/config.hh"
 #include "gz/transport/Export.hh"
@@ -47,7 +47,7 @@
 #include "gz/transport/TransportTypes.hh"
 #include "gz/transport/Uuid.hh"
 
-namespace gz
+namespace ignition
 {
   namespace transport
   {
