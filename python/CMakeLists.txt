@@ -1,3 +1,18 @@
+# Detect if we are doing a standalone build of the bindings, using an external gz-math
+if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+  cmake_minimum_required(VERSION 3.16)
+  set(GZ_TRANSPORT_VER 13)
+  project(gz-transport${GZ_MATH_VER}-python VERSION ${GZ_TRANSPORT_VER})
+  find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+  find_package(pybind11 REQUIRED)
+  find_package(gz-transport${PROJECT_VERSION_MAJOR} REQUIRED)
+  set(PROJECT_LIBRARY_TARGET_NAME "gz-transport${PROJECT_VERSION_MAJOR}::gz-transport${PROJECT_VERSION_MAJOR}")
+  include(CTest)
+  if(BUILD_TESTING)
+    enable_testing()
+  endif()
+endif()
+
 if(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Debug")
   # pybind11 logic for setting up a debug build when both a debug and release
   # python interpreter are present in the system seems to be pretty much broken.
